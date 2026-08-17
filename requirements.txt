@@ -1,0 +1,8 @@
+# TensorFlow version is confirmed from the saved Colab output.
+tensorflow==2.20.0
+
+# Exact versions were not recorded in the original Colab run.
+numpy
+matplotlib
+Pillow
+scikit-learn

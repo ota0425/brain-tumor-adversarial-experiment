@@ -10,6 +10,8 @@
 - **現在の進捗**：MobileNetV2を用いたMRI画像分類モデルの学習と、通常のテスト画像に対するベースライン評価まで完了している。
 - **次の実験**：FGSMで敵対的サンプルを生成し、攻撃前後の分類性能を比較する。
 
+確認済みのベースライン結果は、最高Validation Accuracyが0.91071、通常Testingデータ1,600枚に対するTest Lossが0.5203、Test Accuracyが0.8319（83.19%）である。混同行列およびクラス別Precision、Recall、F1-scoreは、Notebookのコード修正後にColabで再実行する必要がある。
+
 ## 2. 研究テーマ案
 
 ### 英語
@@ -49,7 +51,7 @@ Adversarial Trainingによる防御評価は、FGSM攻撃と脆弱性評価が�
 1. **完了**：KaggleのBrain Tumor MRI Datasetを取得し、データ構成とクラス数を確認する。
 2. **完了**：Trainingデータを学習用80%と検証用20%に分割し、別のTestingデータを最終評価用とする。
 3. **完了**：ImageNetで事前学習されたMobileNetV2の特徴抽出部を固定し、MRI画像4クラス分類モデルを学習する。
-4. **完了**：通常のテスト画像に対するAccuracy、Precision、Recall、F1-score、混同行列を測定する。
+4. **一部完了**：通常のテスト画像に対するLossとAccuracyを測定済み。Precision、Recall、F1-score、混同行列はコード修正済みで、Colabでの再実行が必要。
 5. **次に実施**：TensorFlowのGradientTapeを用い、入力画像に対する損失の勾配からFGSMを実装する。
 6. 複数のεでテスト画像から敵対的サンプルを生成する。生成後の画素値は元の入力範囲にクリップする。
 7. 各εについてAccuracy、クラス別指標、Attack Success Rateを測定し、攻撃前と比較する。
@@ -87,6 +89,15 @@ Accuracy Dropは「通常画像のAccuracy − 敵対的サンプルのAccuracy�
 
 ※ 表のεは0–255の入力スケールに対する候補値であり、予備実験の結果に応じて調整する。
 
+### 確認済みのベースライン結果
+
+| 指標 | 結果 |
+|---|---:|
+| Best Validation Accuracy | 0.91071 |
+| Best Epoch | 9 |
+| Test Loss | 0.5203 |
+| Clean Test Accuracy | 0.8319（83.19%） |
+
 ## 9. 8週間の予定
 
 | 期間 | 内容 | 成果物 |
@@ -109,11 +120,13 @@ Mr. Surasakの研究では、攻撃者と防御者の戦略、Stackelberg Securi
 - **評価値**：攻撃成功率、分類精度、防御コスト、計算コストなどを用いる。
 - **発展目標**：攻撃と防御の条件をモデル化し、どの防御戦略が有効か分析する。
 
-ただし、形式的検証は発展課題とし、最初に「MRI分類モデルの作成 → FGSM攻撃 → 防御評価」を完成させる。
+ただし、形式的検証は発展課題とし、最初に「MRI分類モデルの作成 → FGSM攻撃 → 脆弱性評価」を完成させる。防御評価はその後の第二段階とする。
 
 ## 11. 最低限の達成目標
 
 - MRI画像分類モデルが動作する。（完了）
+- 通常Testingデータに対するLossとAccuracyを測定できる。（完了：Accuracy 83.19%）
+- 混同行列とクラス別Precision、Recall、F1-scoreを測定できる。（コード修正済み、再実行待ち）
 - FGSMによる敵対的サンプルを生成できる。
 - εと分類性能の関係を定量的に示せる。
 - 攻撃前後のAccuracy、Accuracy Drop、Attack Success Rateを比較できる。
