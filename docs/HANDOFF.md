@@ -8,9 +8,17 @@
 
 Thammasat_MRI_Adversarial_Research_Handoff.docxは過去の会話時点で作成された旧資料であり、テスト評価の状態とεの候補が古い。現在の進捗判断には使用しない。
 
+## 研究環境とコミュニケーション
+
+- ユーザーはタイのThammasat University（タマサート大学）で本研究を実施している。
+- 指導教員はMr. Surasakである。
+- 毎日、研究進捗と実験方針について、指導教員と英語でミーティングを行っている。
+- 新しいチャットは、実験実装だけでなく、英語ミーティングで使える進捗説明、結果の解釈、次に相談する質問の整理も支援する。
+- 英語説明では、実測済みの事実、現時点の解釈、未確認事項を明確に分け、未実行の結果を推測で埋めない。
+
 ## 研究の目的
 
-MobileNetV2を用いたMRI脳腫瘍4クラス分類モデルにuntargeted white-box FGSMを適用し、摂動強度εに応じて分類性能がどの程度低下するかを測定する。主目的はモデルの脆弱性評価であり、Adversarial Trainingは第二段階とする。
+MobileNetV2を用いたMRI脳腫瘍4クラス分類モデルにuntargeted white-box FGSMを適用し、摂動強度εに応じて分類性能がどの程度低下するかを測定する。その次段階として、clean/adversarialを判定し、攻撃の疑いがある入力を拒否できる検知モデルを評価する。詳細は`docs/adversarial_detection_research_plan.md`を一次情報とする。
 
 ## 確認済みの構成
 
@@ -72,16 +80,28 @@ class_namesはprefetch前にすでに保存されているため、既存変数�
 
 ε = 1で攻撃後Accuracyが3.31%まで低下したため、性能低下が立ち上がる範囲を詳細に調べる追加実験が必要である。
 
+## FGSM微小ε実験（完了）
+
+| ε | Clean Accuracy | Adversarial Accuracy | Accuracy Drop | Attack Success Rate |
+|---:|---:|---:|---:|---:|
+| 0 | 0.8319 | 0.8319 | 0.0000 | 0.0000 |
+| 0.01 | 0.8319 | 0.8087 | 0.0231 | 0.0278 |
+| 0.05 | 0.8319 | 0.7056 | 0.1263 | 0.1518 |
+| 0.10 | 0.8319 | 0.5319 | 0.3000 | 0.3606 |
+| 0.25 | 0.8319 | 0.2081 | 0.6238 | 0.7498 |
+| 0.50 | 0.8319 | 0.0781 | 0.7538 | 0.9061 |
+| 1.00 | 0.8319 | 0.0331 | 0.7988 | 0.9602 |
+
+εの増加に応じてAccuracyは単調に低下した。ε=0.05–0.25が性能低下の主な立ち上がり領域である。
+
 ## 次に行う作業
 
-1. ColabでNotebookを開き、Driveをマウントする。
-2. データセット作成セルまで実行し、class_namesを準備する。
-3. 保存済みモデルをロードし、通常テストAccuracyが再現することを確認する。
-4. FGSMセクションを実行する。
-5. ε = 0, 0.01, 0.05, 0.1, 0.25, 0.5, 1でTestingデータ全体を評価する。
-6. `fgsm_fine_summary.csv`、`fgsm_fine_class_metrics.csv`、グラフ、可視化画像を保存する。
-7. 結果が単調に変化するか、クラス別の影響が異なるかを確認する。
-8. 実測結果をREADME、研究計画、この文書へ反映する。
+1. GitHub上の微小ε実験結果をローカルの資料と同期する。
+2. `brain_tumor_adversarial_detection.ipynb`のStep 1からStep 3をColabで実行する。
+3. clean Test Accuracy 83.19%前後、clean/adversarialラベル数1:1、最大摂動が指定ε以下であることを確認する。
+4. MobileNetV2内部特徴を使うclean/adversarial二値検知モデルを学習し、Validation ROC-AUC基準のベストモデルを保存する。
+5. ε=0.01, 0.1, 0.5を学習用とする。
+6. 既知εと、未知ε=0.05, 0.25, 1の検知性能を分けて評価する。
 
 ## FGSMの実装条件
 
@@ -129,8 +149,7 @@ Attack Success Rate：
 
 ## 未確認事項・制約
 
-- 小さいεでのFGSM再実験は未実行
-- ε = 1, 2, 4, 8の非単調なAccuracyは、攻撃がすでにほぼ飽和した後の揺らぎの可能性がある。微小ε領域の結果で確認する
+- Adversarial検知NotebookのStep 3まで実装済みだがColabで未実行。検知モデルの実測性能は未確認
 - データセットが患者単位で独立に分割されているか未確認
 - 保存済みモデルのファイルハッシュは未記録
 - requirements.txtを作成済み。TensorFlow 2.20.0のみ元のColab出力で確認済みであり、その他の正確なバージョンは未記録
@@ -140,10 +159,16 @@ Attack Success Rate：
 ~~~text
 このリポジトリのREADME.md、docs/HANDOFF.md、
 docs/thammasat_adversarial_examples_research_plan.md、
+docs/adversarial_detection_research_plan.md、
 brain_tumor_adversarial_examples.ipynbを確認してください。
+ユーザーはThammasat Universityで本研究を行っており、
+毎日、指導教員Mr. Surasakと英語で研究ミーティングを行っています。
+進捗、確認済みの結果、次の作業を英語で説明できる形で整理してください。
 現在、MobileNetV2の通常テスト精度83.19%、詳細分類評価、
-ε=0,1,2,4,8のFGSM予備実験まで完了しています。
-次は0–255入力スケールのuntargeted white-box FGSMを
-ε=0,0.01,0.05,0.1,0.25,0.5,1で再実験してください。
+ε=0,1,2,4,8のFGSM予備実験、微小ε実験まで完了しています。
+次はbrain_tumor_adversarial_detection.ipynbのStep 1からStep 3をColabで実行し、
+clean Test Accuracy 83.19%前後の再現、検知ラベルのバランス、摂動量、
+検知器のValidation ROC-AUCを確認してください。
+その後、既知ε=0.01,0.1,0.5と未知ε=0.05,0.25,1への検知性能を評価してください。
 未確認の結果を推測で埋めないでください。
 ~~~

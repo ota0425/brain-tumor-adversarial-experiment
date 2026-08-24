@@ -3,6 +3,7 @@ tensorflow==2.20.0
 
 # Exact versions were not recorded in the original Colab run.
 numpy
+pandas
 matplotlib
 Pillow
 scikit-learn

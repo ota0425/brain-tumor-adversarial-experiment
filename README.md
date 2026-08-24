@@ -2,14 +2,22 @@
 
 MRI画像の4クラス分類モデルにFGSM（Fast Gradient Sign Method）を適用し、攻撃前後の分類性能を比較する研究プロジェクトです。実験はGoogle ColabとTensorFlow/Kerasを使用します。
 
+## 研究活動の背景
+
+- 本研究は、ユーザーがタイの**Thammasat University（タマサート大学）**に滞在して実施している。
+- 指導教員は**Mr. Surasak**である。
+- 研究進捗、実験結果、次の作業について、**毎日、指導教員と英語でミーティング**を行っている。
+- 資料作成や引き継ぎでは、英語で進捗を説明できるように、確認済みの結果、未確認事項、次の作業を明確に区別する。
+
 ## 最初に読む資料
 
 - [HANDOFF.md](docs/HANDOFF.md)：現在の正確な進捗、既知の問題、次の作業
 - [研究計画](docs/thammasat_adversarial_examples_research_plan.md)：研究目的、Research Question、評価指標
-- [実験Notebook](brain_tumor_adversarial_examples.ipynb)：データ読み込み、学習、評価、今後のFGSM実装
+- [Adversarial検知研究計画](docs/adversarial_detection_research_plan.md)：clean/adversarial検知モデルの設計、データ分割、評価方法
+- [攻撃・脆弱性評価Notebook](brain_tumor_adversarial_examples.ipynb)：データ読み込み、分類モデル学習、FGSM評価
 - [docs/README.md](docs/README.md)：参考資料の位置づけ
 
-新しいCodexチャットでは、このフォルダを開いた状態で「README.mdとdocs/HANDOFF.mdを読み、次の作業を続けて」と依頼してください。
+新しいCodexチャットでは、このフォルダを開いた状態で「README.mdとdocs/HANDOFF.mdを読み、次の作業を続けて。毎日の英語ミーティングで説明できる形で進捗を整理して」と依頼してください。
 
 ## 現在の進捗
 
@@ -22,8 +30,17 @@ MRI画像の4クラス分類モデルにFGSM（Fast Gradient Sign Method）を�
 | 混同行列・Precision・Recall・F1-score | 完了 |
 | FGSM実装 | 完了 |
 | 予備実験（ε = 0, 1, 2, 4, 8） | 完了 |
-| 小さいεの再実験 | Notebook修正済み、Colabで再実行が必要 |
+| 小さいεの再実験 | 完了 |
+| Adversarial検知の研究設計 | 計画作成済み |
+| Adversarial検知Notebook | Step 3まで実装済み、Colab実行待ち |
 | Adversarial Training | 第二段階 |
+
+## Notebookの分け方
+
+- `brain_tumor_adversarial_examples.ipynb`：腫瘍分類モデルとFGSM攻撃の生成・脆弱性評価に使用する。
+- `brain_tumor_adversarial_detection.ipynb`：Step 1の実験基盤、Step 2の検知データ生成、Step 3の二値検知モデル学習まで実装済み。今後、既知εと未知εの評価を追加する。
+
+攻撃実験と検知モデル実験のデータ分割、学習状態、結果を混在させないため、Notebookを分離する。
 
 確認済みのベースライン結果：
 
@@ -43,7 +60,7 @@ MRI画像の4クラス分類モデルにFGSM（Fast Gradient Sign Method）を�
 
 ## FGSM予備実験の結果
 
-0–255入力スケールでε = 0, 1, 2, 4, 8を評価しました。ε = 1でもAccuracyが3.31%まで低下したため、攻撃の影響が立ち上がる範囲を調べるために、より小さいεで再実験します。
+0–255入力スケールでε = 0, 1, 2, 4, 8を評価しました。ε = 1でもAccuracyが3.31%まで低下したため、攻撃の影響が立ち上がる範囲を調べる微小ε実験を追加しました。
 
 | ε | Clean Accuracy | Adversarial Accuracy | Accuracy Drop | Attack Success Rate |
 |---:|---:|---:|---:|---:|
@@ -53,13 +70,19 @@ MRI画像の4クラス分類モデルにFGSM（Fast Gradient Sign Method）を�
 | 4 | 0.8319 | 0.0187 | 0.8131 | 0.9775 |
 | 8 | 0.8319 | 0.0431 | 0.7888 | 0.9482 |
 
-次回の微小摂動実験は、次の値を使用します。
+微小摂動実験の結果：
 
-~~~text
-ε = 0, 0.01, 0.05, 0.1, 0.25, 0.5, 1
-~~~
+| ε | Clean Accuracy | Adversarial Accuracy | Accuracy Drop | Attack Success Rate |
+|---:|---:|---:|---:|---:|
+| 0 | 0.8319 | 0.8319 | 0.0000 | 0.0000 |
+| 0.01 | 0.8319 | 0.8087 | 0.0231 | 0.0278 |
+| 0.05 | 0.8319 | 0.7056 | 0.1263 | 0.1518 |
+| 0.10 | 0.8319 | 0.5319 | 0.3000 | 0.3606 |
+| 0.25 | 0.8319 | 0.2081 | 0.6238 | 0.7498 |
+| 0.50 | 0.8319 | 0.0781 | 0.7538 | 0.9061 |
+| 1.00 | 0.8319 | 0.0331 | 0.7988 | 0.9602 |
 
-これらはすべて0–255スケールの値です。新しい数値結果はColab再実行後に追記します。
+これらはすべて0–255スケールの値です。εの増加に伴い性能が単調に低下し、ε=0.05–0.25で攻撃の影響が大きく立ち上がりました。
 
 ## データセット
 
@@ -132,8 +155,8 @@ NotebookはColab上で次のZIPを展開する構成です。
 6. 保存済みモデルを読み込む。
 7. 通常テスト評価を再現する。
 8. 詳細分類評価セルを実行し、ベースラインを再確認する。
-9. FGSMセクションを実行し、ε = 0, 0.01, 0.05, 0.1, 0.25, 0.5, 1を評価する。
-10. `fgsm_fine_*.csv/png`の結果をNotebookと資料へ反映する。
+9. FGSM微小ε実験の保存済み結果を確認する。
+10. 次段階は`brain_tumor_adversarial_detection.ipynb`を作成し、検知モデルを学習・評価する。
 
 ## FGSM実験の共通条件
 
