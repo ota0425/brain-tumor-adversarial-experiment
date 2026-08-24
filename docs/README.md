@@ -5,6 +5,7 @@
 - HANDOFF.md：現在の正確な進捗と次の作業。引き継ぎ時の一次情報
 - thammasat_adversarial_examples_research_plan.md：研究目的、実験設計、評価指標
 - adversarial_detection_research_plan.md：Adversarial検知モデルのResearch Question、実験設計、評価指標、Notebook分割
+- meeting_preparation_2026-08-25.md：2026年8月25日のMr. Surasakとのミーティング準備と確認事項
 - 各PDF：研究上の参考文献
 
 ## 旧資料
