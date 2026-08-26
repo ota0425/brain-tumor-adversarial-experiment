@@ -112,7 +112,7 @@ MobileNetV2の中間または最終特徴
 1. **完了**：微小εのFGSM評価を完了する。
 2. **コード修正済み・再実験必要**：Training/Validationを`subset="both"`で同時に作成し、重複0件を検証する。Colabでの再実行は未実施。
 3. **初期実験完了**：凍結MobileNetV2の特徴を使った二値検知モデルを学習する。
-4. **今週の主タスク**：MobileNetV2上位層をfine-tuningし、凍結版と比較する。
+4. **実装済み・実行待ち**：MobileNetV2上位30層をfine-tuningし、凍結版と比較する。
 5. 既知εに対する検知性能を評価する。
 
 ### Phase B：汎化性能
@@ -178,14 +178,15 @@ MobileNetV2の中間または最終特徴
 
 初期Validation結果（閾値0.5）はBinary Accuracy 0.5408、Loss 0.7049、ROC-AUC 0.6520、PR-AUC 0.6552、Precision 0.8425、Recall 0.1003だった。split修正前のため予備結果として扱う。
 
-### Step 3B：MobileNetV2 fine-tuning（次の実験）
+### Step 3B：MobileNetV2 fine-tuning（実装済み、Colab実行待ち）
 
 - 修正済みsplitで凍結版を同じ条件で再実行し、比較基準を確定する。
-- 最初から全層を解凍せず、MobileNetV2の上位ブロックだけを解凍する。
+- 最初から全層を解凍せず、MobileNetV2の上位30層だけを解凍する。
 - Batch Normalization層は初期比較では凍結を維持する。
 - 検知ヘッドの学習済み重みから開始し、Adamと小さいlearning rate（初期候補1e-5）を使用する。
 - Validation ROC-AUCをベストモデル基準として維持し、Binary Accuracy約80%を暫定目標とする。
 - 凍結版とfine-tuning版を、同一split、seed、ε、指標で比較する。
+- 凍結baselineとfine-tuningモデルは別名で保存し、保存済みモデルが存在する場合は学習を自動スキップする。強制再学習時だけ`FORCE_RETRAIN_* = True`とする。
 
 ### Fine-tuning以外の改善候補
 

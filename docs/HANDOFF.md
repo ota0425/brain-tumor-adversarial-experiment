@@ -124,13 +124,15 @@ Accuracyは50%に近く、Recallは約10%である。凍結した最終特徴だ
 
 1. **コード修正済み・再実行待ち**：Training/Validationを1回の分割処理で作り、画像重複が0件であることを検証する。
 2. 修正後のsplitで凍結モデルを再学習し、比較用baselineとして保存する。
-3. MobileNetV2の上位層だけを解凍し、小さいlearning rateでfine-tuningする。
+3. **実装済み・実行待ち**：MobileNetV2の上位30層だけを解凍し、Batch Normalizationを凍結したままlearning rate 1e-5でfine-tuningする。
 4. 同一split、seed、ε、epoch条件で凍結版とfine-tuning版を比較する。
 5. Validation Binary Accuracy約80%を目標としつつ、ROC-AUC、PR-AUC、Recall、FPRも確認する。
 6. モデル選択後、既知ε=0.01, 0.1, 0.5と未知ε=0.05, 0.25, 1をTestingで個別評価する。
 7. fine-tuningだけで不十分な場合は、中間層・複数層特徴、入力画像CNN、feature squeezing、Mahalanobis距離などを比較候補とする。
 
 作業上は「検知器のBinary CrossentropyでMobileNetV2上位層を検知ヘッドと共同fine-tuningする」と解釈する。ただし、先生の意図が「先に4クラスMRI分類モデルをfine-tuningしてから検知器を再構築する」でないか、次回ミーティングで確認する。
+
+Notebookでは凍結baselineとfine-tuningモデルを別名で保存する。各モデルの保存済みファイルがGoogle Driveに存在する場合は学習を自動的にスキップするため、`すべてのセルを実行`しても不要な再学習は行わない。明示的に再学習する場合だけ対応する`FORCE_RETRAIN_*`を`True`にする。
 
 ## FGSMの実装条件
 
