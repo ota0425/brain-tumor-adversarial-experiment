@@ -132,7 +132,7 @@ Accuracyは50%に近く、Recallは約10%である。凍結した最終特徴だ
 
 作業上は「検知器のBinary CrossentropyでMobileNetV2上位層を検知ヘッドと共同fine-tuningする」と解釈する。ただし、先生の意図が「先に4クラスMRI分類モデルをfine-tuningしてから検知器を再構築する」でないか、次回ミーティングで確認する。
 
-Notebookでは凍結baselineとfine-tuningモデルを別名で保存する。各モデルの保存済みファイルがGoogle Driveに存在する場合は学習を自動的にスキップするため、`すべてのセルを実行`しても不要な再学習は行わない。明示的に再学習する場合だけ対応する`FORCE_RETRAIN_*`を`True`にする。
+Notebookでは凍結baselineとfine-tuningモデルを別名で保存する。各実験のモデルと学習履歴CSVがGoogle Driveに両方存在する場合だけ学習を自動的にスキップする。モデルだけが残った中断状態など、どちらかが欠けている場合は再学習する。明示的に再学習する場合だけ対応する`FORCE_RETRAIN_*`を`True`にする。
 
 ## FGSMの実装条件
 

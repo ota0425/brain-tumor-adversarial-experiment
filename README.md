@@ -38,7 +38,7 @@ MRI画像の4クラス分類モデルにFGSM（Fast Gradient Sign Method）を�
 ## Notebookの分け方
 
 - `brain_tumor_adversarial_examples.ipynb`：腫瘍分類モデルとFGSM攻撃の生成・脆弱性評価に使用する。
-- `brain_tumor_adversarial_detection.ipynb`：Step 1からStep 3まで初期実験済み。初期Validation Binary Accuracyは0.5408、ROC-AUCは0.6520。Training/Validationの重複防止、凍結baselineの再実験、MobileNetV2上位30層のfine-tuningを実装済みであり、Colabでの実行を待っている。保存済みモデルが存在する場合は該当する学習を自動的にスキップする。
+- `brain_tumor_adversarial_detection.ipynb`：Step 1からStep 3まで初期実験済み。初期Validation Binary Accuracyは0.5408、ROC-AUCは0.6520。Training/Validationの重複防止、凍結baselineの再実験、MobileNetV2上位30層のfine-tuningを実装済みであり、Colabでの実行を待っている。モデルと学習履歴CSVが両方存在する完了済み実験は自動的にスキップし、どちらかが欠けた途中状態では再学習する。
 
 攻撃実験と検知モデル実験のデータ分割、学習状態、結果を混在させないため、Notebookを分離する。
 

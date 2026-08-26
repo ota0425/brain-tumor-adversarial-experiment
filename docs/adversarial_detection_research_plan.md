@@ -186,7 +186,7 @@ MobileNetV2の中間または最終特徴
 - 検知ヘッドの学習済み重みから開始し、Adamと小さいlearning rate（初期候補1e-5）を使用する。
 - Validation ROC-AUCをベストモデル基準として維持し、Binary Accuracy約80%を暫定目標とする。
 - 凍結版とfine-tuning版を、同一split、seed、ε、指標で比較する。
-- 凍結baselineとfine-tuningモデルは別名で保存し、保存済みモデルが存在する場合は学習を自動スキップする。強制再学習時だけ`FORCE_RETRAIN_* = True`とする。
+- 凍結baselineとfine-tuningモデルは別名で保存する。各実験のモデルと学習履歴CSVが両方存在する場合は学習を自動スキップし、どちらかが欠けた途中状態では再学習する。強制再学習時だけ`FORCE_RETRAIN_* = True`とする。
 
 ### Fine-tuning以外の改善候補
 
