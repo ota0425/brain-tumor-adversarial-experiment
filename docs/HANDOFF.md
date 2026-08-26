@@ -1,6 +1,6 @@
 # Research Handoff
 
-最終更新：2026-08-24
+最終更新：2026-08-26
 
 ## この文書の役割
 
@@ -94,14 +94,43 @@ class_namesはprefetch前にすでに保存されているため、既存変数�
 
 εの増加に応じてAccuracyは単調に低下した。ε=0.05–0.25が性能低下の主な立ち上がり領域である。
 
+## Adversarial検知初期実験（Step 1–3実行済み）
+
+凍結済みMobileNetV2のGlobalAveragePooling2D特徴へ二値検知ヘッドを接続し、clean=0、FGSM adversarial=1として学習した。Validationは学習時と同じε=0.01, 0.1, 0.5を使用した。
+
+ベストモデルを閾値0.5で評価した結果：
+
+| 指標 | 結果 |
+|---|---:|
+| Binary Accuracy | 0.5408 |
+| Loss | 0.7049 |
+| ROC-AUC | 0.6520 |
+| PR-AUC | 0.6552 |
+| Precision | 0.8425 |
+| Recall | 0.1003 |
+
+Accuracyは50%に近く、Recallは約10%である。凍結した最終特徴だけではFGSM摂動を十分に識別できていない可能性がある。初回実行時はTrainingとValidationを異なるshuffle条件で別々に作成していたため、数値は予備結果として扱う。現在は`subset="both"`の1回の呼び出しで両方を作り、元画像pathの重複が0件であることをassertするコードへ修正済みである。修正後の再実行は未実施である。
+
+## 2026-08-25 Mr. Surasakとの決定
+
+- Detection Notebookの構成と初期結果を説明した。
+- 現在の検知性能はランダム判定に近いと共有した。
+- 改善方法として、凍結済みMobileNetV2のfine-tuningを行うことになった。
+- 今週の主タスクはfine-tuningによる検知性能向上である。
+- 暫定目標はBinary Accuracy約80%である。
+- AccuracyだけでなくROC-AUC、PR-AUC、Recall、FPRも報告する。
+
 ## 次に行う作業
 
-1. GitHub上の微小ε実験結果をローカルの資料と同期する。
-2. `brain_tumor_adversarial_detection.ipynb`のStep 1からStep 3をColabで実行する。
-3. clean Test Accuracy 83.19%前後、clean/adversarialラベル数1:1、最大摂動が指定ε以下であることを確認する。
-4. MobileNetV2内部特徴を使うclean/adversarial二値検知モデルを学習し、Validation ROC-AUC基準のベストモデルを保存する。
-5. ε=0.01, 0.1, 0.5を学習用とする。
-6. 既知εと、未知ε=0.05, 0.25, 1の検知性能を分けて評価する。
+1. **コード修正済み・再実行待ち**：Training/Validationを1回の分割処理で作り、画像重複が0件であることを検証する。
+2. 修正後のsplitで凍結モデルを再学習し、比較用baselineとして保存する。
+3. MobileNetV2の上位層だけを解凍し、小さいlearning rateでfine-tuningする。
+4. 同一split、seed、ε、epoch条件で凍結版とfine-tuning版を比較する。
+5. Validation Binary Accuracy約80%を目標としつつ、ROC-AUC、PR-AUC、Recall、FPRも確認する。
+6. モデル選択後、既知ε=0.01, 0.1, 0.5と未知ε=0.05, 0.25, 1をTestingで個別評価する。
+7. fine-tuningだけで不十分な場合は、中間層・複数層特徴、入力画像CNN、feature squeezing、Mahalanobis距離などを比較候補とする。
+
+作業上は「検知器のBinary CrossentropyでMobileNetV2上位層を検知ヘッドと共同fine-tuningする」と解釈する。ただし、先生の意図が「先に4クラスMRI分類モデルをfine-tuningしてから検知器を再構築する」でないか、次回ミーティングで確認する。
 
 ## FGSMの実装条件
 
@@ -149,7 +178,8 @@ Attack Success Rate：
 
 ## 未確認事項・制約
 
-- Adversarial検知NotebookのStep 3まで実装済みだがColabで未実行。検知モデルの実測性能は未確認
+- 検知初期実験は実行済み。Training/Validation splitのコードは修正済みだが、Colabでの再実験が必要
+- Binary Accuracy約80%は暫定目標であり、RecallやFPRを無視して成功を判断しない
 - データセットが患者単位で独立に分割されているか未確認
 - 保存済みモデルのファイルハッシュは未記録
 - requirements.txtを作成済み。TensorFlow 2.20.0のみ元のColab出力で確認済みであり、その他の正確なバージョンは未記録
@@ -166,9 +196,14 @@ brain_tumor_adversarial_examples.ipynbを確認してください。
 進捗、確認済みの結果、次の作業を英語で説明できる形で整理してください。
 現在、MobileNetV2の通常テスト精度83.19%、詳細分類評価、
 ε=0,1,2,4,8のFGSM予備実験、微小ε実験まで完了しています。
-次はbrain_tumor_adversarial_detection.ipynbのStep 1からStep 3をColabで実行し、
-clean Test Accuracy 83.19%前後の再現、検知ラベルのバランス、摂動量、
-検知器のValidation ROC-AUCを確認してください。
-その後、既知ε=0.01,0.1,0.5と未知ε=0.05,0.25,1への検知性能を評価してください。
+検知NotebookのStep 1からStep 3はColabで実行済みです。
+初期検知結果はBinary Accuracy 0.5408、ROC-AUC 0.6520、PR-AUC 0.6552、
+Precision 0.8425、Recall 0.1003で、予備的にはランダム判定に近い性能です。
+Training/Validation splitは`subset="both"`を使うコードへ修正済みです。
+まずColabで全セルを再実行し、重複0件を確認して凍結版baselineを更新してください。
+その後、Mr. Surasakとの2026-08-25の決定に従い、MobileNetV2上位層を
+小さいlearning rateでfine-tuningし、Binary Accuracy約80%を目標に、
+ROC-AUC、PR-AUC、Recall、FPRも比較してください。
+モデル選択後、既知ε=0.01,0.1,0.5と未知ε=0.05,0.25,1を個別評価してください。
 未確認の結果を推測で埋めないでください。
 ~~~

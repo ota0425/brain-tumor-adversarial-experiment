@@ -32,13 +32,13 @@ MRI画像の4クラス分類モデルにFGSM（Fast Gradient Sign Method）を�
 | 予備実験（ε = 0, 1, 2, 4, 8） | 完了 |
 | 小さいεの再実験 | 完了 |
 | Adversarial検知の研究設計 | 計画作成済み |
-| Adversarial検知Notebook | Step 3まで実装済み、Colab実行待ち |
+| Adversarial検知Notebook | Step 3初期実験済み、split修正実装済み・再実行待ち |
 | Adversarial Training | 第二段階 |
 
 ## Notebookの分け方
 
 - `brain_tumor_adversarial_examples.ipynb`：腫瘍分類モデルとFGSM攻撃の生成・脆弱性評価に使用する。
-- `brain_tumor_adversarial_detection.ipynb`：Step 1の実験基盤、Step 2の検知データ生成、Step 3の二値検知モデル学習まで実装済み。今後、既知εと未知εの評価を追加する。
+- `brain_tumor_adversarial_detection.ipynb`：Step 1からStep 3まで初期実験済み。初期Validation Binary Accuracyは0.5408、ROC-AUCは0.6520。Training/Validationを重複なく作るコードへ修正済みであり、次にColabで凍結版を再実行してからMobileNetV2上位層のfine-tuningを行う。
 
 攻撃実験と検知モデル実験のデータ分割、学習状態、結果を混在させないため、Notebookを分離する。
 

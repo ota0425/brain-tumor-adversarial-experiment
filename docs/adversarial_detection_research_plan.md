@@ -1,6 +1,6 @@
 # Adversarial Attack Detection 研究計画
 
-最終更新：2026-08-24
+最終更新：2026-08-26
 
 ## 1. 位置づけ
 
@@ -56,7 +56,7 @@ MobileNetV2の中間または最終特徴
   → Dense(1, Sigmoid)
 ~~~
 
-初期実験ではMobileNetV2を凍結し、検知ヘッドだけを学習する。性能が不十分な場合は、中間レイヤの特徴、複数レイヤの特徴結合、または入力画像を直接学習するCNNと比較する。
+初期実験ではMobileNetV2を凍結し、検知ヘッドだけを学習した。Validation Binary Accuracy 0.5408、ROC-AUC 0.6520、Recall 0.1003となり、性能が不十分だった。2026-08-25のMr. Surasakとのミーティングで、次の主要実験としてMobileNetV2のfine-tuningを行うことを決定した。暫定目標はBinary Accuracy約80%とするが、ROC-AUC、PR-AUC、Recall、FPRも必ず併記する。
 
 ## 6. 検知用データセット
 
@@ -110,9 +110,10 @@ MobileNetV2の中間または最終特徴
 ### Phase A：FGSM検知のProof of Concept
 
 1. **完了**：微小εのFGSM評価を完了する。
-2. **Notebook実装済み・Colab実行待ち**：Training/Validation画像から検知用データを生成する。
-3. MobileNetV2の特徴を使った二値検知モデルを学習する。
-4. 既知εに対する検知性能を評価する。
+2. **コード修正済み・再実験必要**：Training/Validationを`subset="both"`で同時に作成し、重複0件を検証する。Colabでの再実行は未実施。
+3. **初期実験完了**：凍結MobileNetV2の特徴を使った二値検知モデルを学習する。
+4. **今週の主タスク**：MobileNetV2上位層をfine-tuningし、凍結版と比較する。
+5. 既知εに対する検知性能を評価する。
 
 ### Phase B：汎化性能
 
@@ -158,7 +159,7 @@ MobileNetV2の中間または最終特徴
 - 画像データと保存済み分類モデルを読み込む。
 - clean Test Accuracy 83.19%前後を再現する。
 
-### Step 2：検知データ（実装済み、Colab実行待ち）
+### Step 2：検知データ（split修正実装済み、再実行待ち）
 
 - `tf.data`上でバッチ単位にFGSMを生成し、大量の画像ファイル複製を避ける。
 - clean=0とadversarial=1を1:1にする。
@@ -166,13 +167,36 @@ MobileNetV2の中間または最終特徴
 - ValidationとTestingはεごとに固定したパイプラインを作る。
 - Testingは検知閾値の調整に使用しない。
 - 全FGSM画像をadversarialとし、攻撃成功画像と失敗画像の検知率は後で分けて報告する。
+- TrainingとValidationは`subset="both"`による1回の呼び出しで同時に作成するコードへ修正済みである。元画像pathの集合を比較し、重複0件、Training 4,480枚、Validation 1,120枚、合計5,600枚をassertする。Colabでの実測確認は次回実行時に行う。
 
-### Step 3：検知モデル学習（実装済み、Colab実行待ち）
+### Step 3：凍結モデルの初期学習（実行済み）
 
 - MobileNetV2を凍結し、内部特徴に二値検知ヘッドを接続する。
 - Binary Crossentropy、Adam、最大20 epoch、EarlyStoppingを初期条件とする。
 - Validation ROC-AUCまたはPR-AUCを基準にベストモデルを保存する。
 - ベストモデル、学習履歴CSV、Loss・Accuracy・ROC-AUC・PR-AUCの曲線をGoogle Driveへ保存する。
+
+初期Validation結果（閾値0.5）はBinary Accuracy 0.5408、Loss 0.7049、ROC-AUC 0.6520、PR-AUC 0.6552、Precision 0.8425、Recall 0.1003だった。split修正前のため予備結果として扱う。
+
+### Step 3B：MobileNetV2 fine-tuning（次の実験）
+
+- 修正済みsplitで凍結版を同じ条件で再実行し、比較基準を確定する。
+- 最初から全層を解凍せず、MobileNetV2の上位ブロックだけを解凍する。
+- Batch Normalization層は初期比較では凍結を維持する。
+- 検知ヘッドの学習済み重みから開始し、Adamと小さいlearning rate（初期候補1e-5）を使用する。
+- Validation ROC-AUCをベストモデル基準として維持し、Binary Accuracy約80%を暫定目標とする。
+- 凍結版とfine-tuning版を、同一split、seed、ε、指標で比較する。
+
+### Fine-tuning以外の改善候補
+
+1. GlobalAveragePooling2Dの最終特徴だけでなく、より浅い中間層または複数層の特徴を結合する。
+2. MRI入力を直接受け取る小規模CNNを検知器として比較する。
+3. εごとの性能を確認し、微小εと強いεを分けたcurriculumまたはsamplingを検討する。
+4. 同一画像について複数εを学習へ含め、特定εへの依存を減らす。
+5. Feature squeezing後の分類出力との不一致を検知スコアとして比較する。
+6. 複数層特徴に対するMahalanobis距離またはLocal Intrinsic Dimensionalityを比較する。
+7. FGSMで改善後、PGD/BIMを学習または評価へ追加し、攻撃手法への過適合を確認する。
+8. 判定閾値はValidationで調整できるが、ROC-AUCそのものは改善しないため、モデル改善とは分けて報告する。
 
 ### Step 4：既知εの評価
 
@@ -207,5 +231,8 @@ MobileNetV2の中間または最終特徴
 ## 13. 参考文献
 
 - Metzen et al., [On Detecting Adversarial Perturbations](https://arxiv.org/abs/1702.04267)
+- Xu et al., [Feature Squeezing: Detecting Adversarial Examples in Deep Neural Networks](https://arxiv.org/abs/1704.01155)
+- Ma et al., [Characterizing Adversarial Subspaces Using Local Intrinsic Dimensionality](https://arxiv.org/abs/1801.02613)
+- Lee et al., [A Simple Unified Framework for Detecting Out-of-Distribution Samples and Adversarial Attacks](https://arxiv.org/abs/1807.03888)
 - Carlini and Wagner, [Adversarial Examples Are Not Easily Detected](https://arxiv.org/abs/1705.07263)
 - Finlayson et al., [Adversarial attacks against medical deep learning systems](https://arxiv.org/abs/1804.05296)
