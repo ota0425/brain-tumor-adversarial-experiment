@@ -246,6 +246,20 @@ for source_name, markdown_cells in MARKDOWN.items():
         cell["outputs"] = replace_output_text(cell.get("outputs", []))
 
     target_path = ROOT / source_name.replace(".ipynb", "_en.ipynb")
+    source_notebook_url = (
+        "https://colab.research.google.com/github/ota0425/"
+        "brain-tumor-adversarial-experiment/blob/main/"
+        f"{source_name}"
+    )
+    target_notebook_url = source_notebook_url.replace(
+        ".ipynb", "_en.ipynb"
+    )
+    for cell in notebook["cells"]:
+        source = "".join(cell.get("source", []))
+        if source_notebook_url in source:
+            source = source.replace(source_notebook_url, target_notebook_url)
+            cell["source"] = source.splitlines(keepends=True)
+
     target_path.write_text(
         json.dumps(notebook, ensure_ascii=False, indent=1) + "\n",
         encoding="utf-8",
