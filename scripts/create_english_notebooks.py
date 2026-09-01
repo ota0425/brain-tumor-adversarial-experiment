@@ -202,6 +202,7 @@ CODE_REPLACEMENTS = {
     "# データ読み込みを高速化": "# Improve input pipeline performance",
     "# モデルの保存先": "# Model output directory",
     "# 保存したベストモデルのパス": "# Path to the best saved model",
+    "# 今回使用するモデルのパス": "# Model used in this run",
     "# モデルが存在するか確認": "# Check that the model exists",
     "# ベストモデルを読み込み": "# Load the best model",
     "# 未使用のTestingデータで評価": "# Evaluate on the untouched Testing set",
