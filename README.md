@@ -1,5 +1,9 @@
 # Brain Tumor Adversarial Experiment
 
+[![Open rerun pipeline in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ota0425/brain-tumor-adversarial-experiment/blob/main/rerun_colab.ipynb)
+
+先生作成の再現実験を実行する場合は、上の **Open in Colab** ボタンを押してください。
+
 MRI画像の4クラス分類モデルにFGSM（Fast Gradient Sign Method）を適用し、攻撃前後の分類性能を比較する研究プロジェクトです。実験はGoogle ColabとTensorFlow/Kerasを使用します。
 
 ## 研究活動の背景
@@ -22,7 +26,7 @@ MRI画像の4クラス分類モデルにFGSM（Fast Gradient Sign Method）を�
 
 ## 現在の進捗
 
-> 2026-09-04：FGSMの旧Notebook結果は研究履歴として保持する。先生が作成した`ThammasatResearch/ThammasatResearch/rerun/`をStage 1から再実行し、決定論的な基準値とPGD結果をOverleaf論文へ照合する作業が現在の最優先である。新しい基準clean accuracyは81.875%（1,310/1,600）。以前の実験2最終表はmodel artifactが混在したため、現行論文の結果には使用しない。
+> 2026-09-04：FGSMの旧Notebook結果は研究履歴として保持する。先生が作成した`ThammasatResearch/rerun/`をStage 1から再実行し、決定論的な基準値とPGD結果をOverleaf論文へ照合する作業が現在の最優先である。新しい基準clean accuracyは81.875%（1,310/1,600）。以前の実験2最終表はmodel artifactが混在したため、現行論文の結果には使用しない。
 
 | 項目 | 状態 |
 |---|---|
