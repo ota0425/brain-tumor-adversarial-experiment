@@ -1,6 +1,26 @@
 # Research Handoff
 
-最終更新：2026-08-26
+最終更新：2026-09-04
+
+## 2026-09-04 最優先更新
+
+- 論文提出期限は2026-09-15。Mr. SurasakとOverleafで共同執筆中である。
+- 先生がNotebook 3本を、再現性・artifact検証付きのPythonパイプラインへ整理した`ThammasatResearch/ThammasatResearch/rerun/`を受領した。
+- 現在の最優先作業は、Stage 1からStage 9を順に実行し、出力CSV・閾値・FPR・AUC・PGD結果を論文と照合することである。
+- 旧83.19%モデルは上書きされ、以前の実験2最終表は旧検知器と新分類器が混在したため最終結果には使わない。
+- 決定論的なclean rerunの新しい基準は81.875%（1,310/1,600）。Stage 7の確認値はthreshold約0.3612、evaluation FPR約0.0983である。
+- 詳細な実行順、照合表、提出日程は`docs/submission_and_rerun_plan_2026-09-04.md`を一次資料とする。
+- 受領フォルダにはガイドが参照する`papers/adversarial-mri-detection/`がないため、論文値の完全な照合にはOverleafまたは先生から論文ソースを取得する必要がある。
+
+## 2026-09-01 重要更新
+
+- FGSMの分類脆弱性評価、検知実験1、検知実験2、公平なROC-AUC比較を完了した。
+- 2026-09-01のミーティングでFGSMフェーズを終了し、次はPGD adversarial attackを研究することになった。
+- FGSM検知実験2は、epsilon 0.05以上で成功攻撃検出率85%以上を達成したが、Testing clean FPRは14.06%で、目標10%以下は未達である。
+- 次はFGSM検知器のPGDへのzero-shot汎化をまず測定し、その後にPGD学習検知器の必要性を判断する。
+- MICAD 2026を投稿候補として推薦された。公式サイト上の最終論文締切は2026-09-15 (AoE)、会期は2026-10-22から10-24、Edinburgh/ハイブリッドである。
+- 最新の詳細は`docs/meeting_record_2026-09-01.md`を参照する。
+- Google Drive上の`baseline_mobilenetv2.keras`は78.12–78.13%となり、FGSM履歴の83.19%モデルと一致しなかった。これらは履歴として残すが、現行論文ではseedと決定論的演算を固定した81.875%のclean rerunを基準とする。
 
 ## この文書の役割
 
@@ -120,7 +140,9 @@ Accuracyは50%に近く、Recallは約10%である。凍結した最終特徴だ
 - 暫定目標はBinary Accuracy約80%である。
 - AccuracyだけでなくROC-AUC、PR-AUC、Recall、FPRも報告する。
 
-## 次に行う作業
+## 旧Notebook時点の計画（履歴）
+
+以下は2026-08-25時点の計画であり、現在の実行手順ではない。fine-tuningと実験2はその後完了したが、artifact混在が判明したため、現在は先生作成の決定論的rerunパイプラインを使用する。
 
 1. **コード修正済み・再実行待ち**：Training/Validationを1回の分割処理で作り、画像重複が0件であることを検証する。
 2. 修正後のsplitで凍結モデルを再学習し、比較用baselineとして保存する。
@@ -190,22 +212,17 @@ Attack Success Rate：
 
 ~~~text
 このリポジトリのREADME.md、docs/HANDOFF.md、
-docs/thammasat_adversarial_examples_research_plan.md、
-docs/adversarial_detection_research_plan.md、
-brain_tumor_adversarial_examples.ipynbを確認してください。
+docs/submission_and_rerun_plan_2026-09-04.md、
+ThammasatResearch/ThammasatResearch/rerun/README.mdを確認してください。
 ユーザーはThammasat Universityで本研究を行っており、
 毎日、指導教員Mr. Surasakと英語で研究ミーティングを行っています。
 進捗、確認済みの結果、次の作業を英語で説明できる形で整理してください。
-現在、MobileNetV2の通常テスト精度83.19%、詳細分類評価、
-ε=0,1,2,4,8のFGSM予備実験、微小ε実験まで完了しています。
-検知NotebookのStep 1からStep 3はColabで実行済みです。
-初期検知結果はBinary Accuracy 0.5408、ROC-AUC 0.6520、PR-AUC 0.6552、
-Precision 0.8425、Recall 0.1003で、予備的にはランダム判定に近い性能です。
-Training/Validation splitは`subset="both"`を使うコードへ修正済みです。
-まずColabで全セルを再実行し、重複0件を確認して凍結版baselineを更新してください。
-その後、Mr. Surasakとの2026-08-25の決定に従い、MobileNetV2上位層を
-小さいlearning rateでfine-tuningし、Binary Accuracy約80%を目標に、
-ROC-AUC、PR-AUC、Recall、FPRも比較してください。
-モデル選択後、既知ε=0.01,0.1,0.5と未知ε=0.05,0.25,1を個別評価してください。
+論文締切は2026-09-15で、Mr. SurasakとOverleafで共同執筆しています。
+旧83.19%モデルは上書きされ、以前の実験2最終表はmixed-era artifactのため
+現行論文には使用しません。決定論的rerunの基準clean accuracyは
+81.875%（1,310/1,600）です。先生作成のStage 1–9を順に実行し、
+各CSV、threshold、FPR、AUC、PGD結果を論文と照合してください。
+Stage 1が0.81875を再現しない場合は先へ進まず、原因を調査してください。
+既存モデルを上書きする`--force`は明示的な合意なしに使用しないでください。
 未確認の結果を推測で埋めないでください。
 ~~~

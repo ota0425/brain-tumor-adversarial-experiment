@@ -1,6 +1,10 @@
 # Adversarial Attack Detection 研究計画
 
-最終更新：2026-08-26
+最終更新：2026-09-04
+
+> 2026-09-01更新：FGSMフェーズは実験2と公平比較まで完了した。次期はPGD攻撃とFGSM検知器のPGDへのzero-shot汎化を評価する。確定結果とミーティング決定は`docs/meeting_record_2026-09-01.md`を一次資料とする。
+
+> 2026-09-04更新：先生作成の決定論的`rerun`パイプラインがNotebookを置き換えた。旧実験2の最終表はmixed-era artifactとして使用せず、81.875%の分類器を起点にStage 1–9を再実行して論文と照合する。現行作業は`docs/submission_and_rerun_plan_2026-09-04.md`を参照する。
 
 ## 1. 位置づけ
 
@@ -109,11 +113,12 @@ MobileNetV2の中間または最終特徴
 
 ### Phase A：FGSM検知のProof of Concept
 
-1. **完了**：微小εのFGSM評価を完了する。
-2. **コード修正済み・再実験必要**：Training/Validationを`subset="both"`で同時に作成し、重複0件を検証する。Colabでの再実行は未実施。
-3. **初期実験完了**：凍結MobileNetV2の特徴を使った二値検知モデルを学習する。
-4. **実装済み・実行待ち**：MobileNetV2上位30層をfine-tuningし、凍結版と比較する。
-5. 既知εに対する検知性能を評価する。
+1. **完了**：微小εのFGSM評価。
+2. **完了**：分離済みTraining/Validation splitでの凍結baseline。
+3. **完了**：MobileNetV2上位30層のfine-tuningと凍結版比較。
+4. **完了**：既知・未知εのTesting評価。
+5. **完了**：成功攻撃向け一貫性検知器（実験2）。
+6. **完了**：実験1と2の同一positive集合によるROC-AUC公平比較。
 
 ### Phase B：汎化性能
 
@@ -123,7 +128,7 @@ MobileNetV2の中間または最終特徴
 
 ### Phase C：別攻撃とadaptive attack（発展）
 
-1. PGDまたはBIMを実装し、FGSMで学習した検知器を評価する。
+1. **次の主要タスク**：PGDを実装し、分類脆弱性とFGSM検知器のzero-shot汎化を評価する。
 2. 分類器と検知器の両方を考慮したadaptive attackの脅威を考察する。
 3. 必要に応じてAdversarial Trainingと検知器を比較する。
 

@@ -14,12 +14,15 @@ MRI画像の4クラス分類モデルにFGSM（Fast Gradient Sign Method）を�
 - [HANDOFF.md](docs/HANDOFF.md)：現在の正確な進捗、既知の問題、次の作業
 - [研究計画](docs/thammasat_adversarial_examples_research_plan.md)：研究目的、Research Question、評価指標
 - [Adversarial検知研究計画](docs/adversarial_detection_research_plan.md)：clean/adversarial検知モデルの設計、データ分割、評価方法
+- [論文提出・再実行計画](docs/submission_and_rerun_plan_2026-09-04.md)：2026年9月15日の提出期限、Overleaf共同執筆、先生作成のPythonパイプラインと論文照合手順
 - [攻撃・脆弱性評価Notebook](brain_tumor_adversarial_examples.ipynb)：データ読み込み、分類モデル学習、FGSM評価
 - [docs/README.md](docs/README.md)：参考資料の位置づけ
 
 新しいCodexチャットでは、このフォルダを開いた状態で「README.mdとdocs/HANDOFF.mdを読み、次の作業を続けて。毎日の英語ミーティングで説明できる形で進捗を整理して」と依頼してください。
 
 ## 現在の進捗
+
+> 2026-09-04：FGSMの旧Notebook結果は研究履歴として保持する。先生が作成した`ThammasatResearch/ThammasatResearch/rerun/`をStage 1から再実行し、決定論的な基準値とPGD結果をOverleaf論文へ照合する作業が現在の最優先である。新しい基準clean accuracyは81.875%（1,310/1,600）。以前の実験2最終表はmodel artifactが混在したため、現行論文の結果には使用しない。
 
 | 項目 | 状態 |
 |---|---|
@@ -31,9 +34,11 @@ MRI画像の4クラス分類モデルにFGSM（Fast Gradient Sign Method）を�
 | FGSM実装 | 完了 |
 | 予備実験（ε = 0, 1, 2, 4, 8） | 完了 |
 | 小さいεの再実験 | 完了 |
-| Adversarial検知の研究設計 | 計画作成済み |
-| Adversarial検知Notebook | split修正・fine-tuning実装済み、Colab実行待ち |
-| Adversarial Training | 第二段階 |
+| Adversarial検知の研究設計 | 完了 |
+| Adversarial検知Notebook実験1・2 | 完了、ただし旧最終表はmixed-era artifactとして履歴化 |
+| 決定論的Python rerun | 先生作成済み、Stage 1–9の再実行・論文照合待ち |
+| PGD評価 | rerun Stage 8–9に実装済み、再実行待ち |
+| 論文 | Overleafで共同執筆中、2026-09-15締切 |
 
 ## Notebookの分け方
 

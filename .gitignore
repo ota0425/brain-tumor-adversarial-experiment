@@ -197,6 +197,13 @@ cython_debug/
 # Local research dataset (download separately)
 dataset/
 
+# Professor-provided rerun package: keep source/guides, not local artifacts
+ThammasatResearch/__MACOSX/
+ThammasatResearch/ThammasatResearch/dataset/
+ThammasatResearch/ThammasatResearch/models/
+ThammasatResearch/ThammasatResearch/results/
+**/.DS_Store
+
 # Visual Studio Code
 #   Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
 #   that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
