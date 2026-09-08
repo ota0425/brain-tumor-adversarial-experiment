@@ -20,3 +20,7 @@ the shared success sets remains within two percentage points of FGSM.
 The dataset audit and exclusion analysis were not part of stages 1--9.
 Their dataset-intrinsic findings are retained, but classifier-specific
 exclusion metrics should be rerun with the final model before submission.
+
+Stage 10 was subsequently run on the same verified model. Its persisted
+`exp1/clean_score_distribution_shift.csv` supplies the clean-score
+quantiles and fixed-threshold FPRs restored in Table 3.

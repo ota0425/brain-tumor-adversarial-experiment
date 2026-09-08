@@ -278,12 +278,32 @@ calibration comes closest to the target.}
 \end{figure}
 
 Removing selection leakage (row~2) does not help: the test FPR increases
-from the 8.93\% calibration value to 15.44\%. This indicates a shift in
-the upper tail of the clean-score distribution, exactly where a fixed
-threshold operates. ROC-AUC remains high under the same shift, which is
-why AUC-only reporting cannot reveal the problem. A margin variant
-(calibrating to 7.5\% for headroom) also misses its target, reaching
-14.25\% on the full test set.
+from the 8.93\% calibration value to 15.44\%. Table~\ref{tab:shift}
+shows why. The medians of the full validation and test clean-score
+distributions are both near zero, but their upper tails diverge: the
+90th percentile increases from 0.189 to 0.351 and the 95th percentile
+from 0.400 to 0.687. At the fixed v2b threshold 0.151, the full-split
+FPR consequently increases from 10.98\% on validation to 15.44\% on
+test. The margin threshold shows the same pattern (9.64\% to 14.25\%).
+Because ROC-AUC summarizes score rankings rather than performance at a
+fixed threshold, AUC-only reporting cannot reveal this operating-point
+failure.
+
+\begin{table}
+\centering
+\caption{Clean detector-score distributions for the final v2b detector
+on the full validation and test splits. The last two columns report the
+clean FPR induced by applying the same fixed thresholds to both splits.}
+\label{tab:shift}
+\begin{tabular}{lcccccc}
+\toprule
+Split & $p_{50}$ & $p_{75}$ & $p_{90}$ & $p_{95}$ & FPR@0.151 & FPR@0.201 \\
+\midrule
+Validation ($n{=}1{,}120$) & 0.0001 & 0.0127 & 0.1890 & 0.3996 & 10.98\% & 9.64\% \\
+Test ($n{=}1{,}600$)       & 0.0001 & 0.0276 & 0.3514 & 0.6868 & 15.44\% & 14.25\% \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Calibrating on 400 clean images from the deployment collection lands the
 threshold at 0.321, reducing the evaluation FPR to 10.75\%, and requires
