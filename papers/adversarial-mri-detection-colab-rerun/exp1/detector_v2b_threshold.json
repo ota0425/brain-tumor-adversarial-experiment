@@ -1,0 +1,30 @@
+{
+  "threshold": 0.15071886777877808,
+  "calibration_fpr": 0.08928571428571429,
+  "calibration_tpr": 0.9788961038961039,
+  "calibration_roc_auc": 0.9905612244897959,
+  "calibration_pr_auc": 0.9916727804052277,
+  "margin_threshold": 0.20058344304561615,
+  "margin_fpr": 0.075,
+  "margin_tpr": 0.9707792207792207,
+  "split": {
+    "val_A_model_selection": 560,
+    "val_B_calibration": 560,
+    "split_seed": 42
+  },
+  "train_success_counts": {
+    "0.01": 134,
+    "0.1": 1324,
+    "0.5": 3525
+  },
+  "val_a_success_counts": {
+    "0.01": 14,
+    "0.1": 177,
+    "0.5": 444
+  },
+  "val_b_success_counts": {
+    "0.01": 14,
+    "0.1": 162,
+    "0.5": 440
+  }
+}

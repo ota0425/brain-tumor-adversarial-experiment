@@ -1,0 +1,21 @@
+{
+  "classifier_path": "/content/drive/MyDrive/ThammasatResearch/models/classifier_seed42.keras",
+  "classifier_sha256": "ff09342ee1fa88febbdfb132a74704ef977056c41839b956ad32de564adef60e",
+  "clean_test_accuracy": 0.819375,
+  "clean_correct": 1311,
+  "class_names": [
+    "glioma",
+    "meningioma",
+    "notumor",
+    "pituitary"
+  ],
+  "seed": 42,
+  "tensorflow_version": "2.20.0",
+  "detector_v2_path": "/content/drive/MyDrive/ThammasatResearch/models/detector_v2_seed42.keras",
+  "detector_v2_sha256": "e2a916cc71b39e2cfd5bd0fb087452768562d8abc41f469f834d0a0bd25e5c4b",
+  "detector_v2_threshold": 0.19414600729942322,
+  "detector_v2b_path": "/content/drive/MyDrive/ThammasatResearch/models/detector_v2b_seed42.keras",
+  "detector_v2b_sha256": "15d4b910e1c31144ec25ce37f209e2f396b8da636b48a6e5dd29b056dcd0dd35",
+  "detector_v2b_threshold": 0.15071886777877808,
+  "detector_v2b_margin_threshold": 0.20058344304561615
+}

@@ -1,0 +1,13 @@
+{
+  "protocol": "deployment calibration: Testing split 400 calib / 1200 eval, threshold from clean calib scores only",
+  "calib_size": 400,
+  "eval_size": 1200,
+  "split_seed": 42,
+  "threshold": 0.32068297266960144,
+  "calibration_fpr": 0.1,
+  "margin_threshold": 0.4477800726890564,
+  "margin_calibration_fpr": 0.075,
+  "eval_clean_fpr": 0.1075,
+  "eval_clean_fpr_margin": 0.0825,
+  "detector_sha256": "15d4b910e1c31144ec25ce37f209e2f396b8da636b48a6e5dd29b056dcd0dd35"
+}

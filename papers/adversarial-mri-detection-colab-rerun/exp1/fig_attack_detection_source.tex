@@ -1,0 +1,28 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+\begin{groupplot}[
+ group style={group size=2 by 1,horizontal sep=1.5cm},
+ width=8.2cm,height=6.1cm,
+ xmode=log, log basis x=10,
+ xmin=0.008,xmax=1.2,ymin=0,ymax=1.02,
+ xtick={0.01,0.05,0.1,0.25,0.5,1},
+ xticklabels={0.01,0.05,0.1,0.25,0.5,1.0},
+ xlabel={$\varepsilon$ (0--255 input scale)},
+ grid=major, grid style={gray!25},
+ legend style={draw=none,font=\small},
+]
+\nextgroupplot[title={Attack success rate},ylabel={Successful / initially correct},legend pos=south east]
+\addplot[blue,mark=*] coordinates {(0.01,.02554)(0.05,.14198)(0.1,.31665)(0.25,.67926)(0.5,.88355)(1,.94893)};\addlegendentry{FGSM}
+\addplot[orange,mark=square*,dashed] coordinates {(0.01,.02554)(0.05,.16854)(0.1,.40552)(0.25,.87130)(0.5,.98570)(1,.99898)};\addlegendentry{PGD-10}
+\addplot[teal,mark=triangle*,dotted,thick] coordinates {(0.01,.02656)(0.05,.17365)(0.1,.41879)(0.25,.89479)(0.5,.99387)(1,1)};\addlegendentry{PGD-40}
+\nextgroupplot[title={Detection on shared successes},ylabel={Detection rate (clean FPR 10.8\%)},legend pos=south east]
+\addplot[blue,mark=*] coordinates {(0.01,.36)(0.05,.73381)(0.1,.86129)(0.25,.96541)(0.5,.98266)(1,.98493)};\addlegendentry{FGSM}
+\addplot[orange,mark=square*,dashed] coordinates {(0.01,.36)(0.05,.74820)(0.1,.87742)(0.25,.96541)(0.5,.97919)(1,.99031)};\addlegendentry{PGD-10}
+\addplot[teal,mark=triangle*,dotted,thick] coordinates {(0.01,.36)(0.05,.74101)(0.1,.88065)(0.25,.96692)(0.5,.98266)(1,.98924)};\addlegendentry{PGD-40}
+\end{groupplot}
+\end{tikzpicture}
+\end{document}
