@@ -45,6 +45,11 @@ python3 -m venv ~/venvs/tf220
 | 8 | `06_pgd_eval.py` | PGD (K=10/40) against the detector at the pinned threshold | ~20 min |
 | 9 | `06b_intersection_analysis.py` | FGSM/PGD comparison on the intersection of success sets; persists per-image scores to `attack_scores.npz` | ~20 min |
 | 10 | `diag_score_shift.py` | Save validation/test clean-score quantiles and FPR transfer diagnostics to `clean_score_distribution_shift.csv` | ~1 min |
+| 11 | `scan_text_banners.py` | Recreate the dataset-intrinsic banner/text scan | minutes |
+| 12 | `pixel_leakage_scan.py` | Recreate the definitive pixel-level duplicate scan | minutes |
+| 13 | `exclusion_and_shortcut.py` | Recompute banner-group accuracy and exclusion results from the final persisted predictions | seconds |
+| 14 | `clean_fpr_exclusion.py` | Recompute clean FPR after dataset-defect exclusions with the final models | minutes |
+| 15 | `make_example_figure.py` | Regenerate Figure 1 from the final classifier and attacks at 300-DPI raster resolution inside PDF | minutes |
 | — | `make_figures.py` (in `papers/…/exp1/`) | Generates the paper's Fig 2–3 from the CSVs | seconds |
 
 Run them in order:
