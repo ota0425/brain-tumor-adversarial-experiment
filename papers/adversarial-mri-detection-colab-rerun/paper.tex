@@ -23,11 +23,15 @@ Department of Electrical and Computer Engineering, Faculty of Engineering, Thamm
 Adversarial attack detectors are commonly reported using ROC-AUC or
 detection rates at a false-positive rate (FPR) calibrated on
 training-side data. On a four-class brain-tumor MRI task, we show that
-this convention overstates deployed performance: thresholds targeting a
-10\% FPR achieve 13.56\% and 15.44\% on the test collection, while
+this convention can overstate performance when a threshold is transferred
+between distinct data collections: thresholds targeting a 10\% FPR
+achieve 13.56\% and 15.44\% on the test collection, while
 ROC-AUC remains high. Recalibration using 400 clean images from the
 deployment collection reduces the evaluation FPR to 10.75\%, without
-requiring labelled attacks. At this fixed operating point, an
+requiring labelled attacks. This collection-level result illustrates a
+potential risk when a detector is transferred to a hospital with
+different scanners or acquisition protocols, although no clinical
+deployment was evaluated here. At this fixed operating point, an
 FGSM-trained detector also detects unseen PGD attacks within two
 percentage points of its FGSM performance on identical images. The
 reported results were reproduced independently in two Google Colab T4
@@ -54,9 +58,9 @@ cost of a false alarm (a repeated scan, a delayed diagnosis) makes the
 achieved false-positive rate a condition of use rather than an
 implementation detail.
 
-This paper asks what happens to the operating point between the lab and
-deployment, using a brain-tumor MRI classifier as the test bed. Our
-contributions:
+This paper asks what happens when an operating point is transferred
+between distinct data collections, using a brain-tumor MRI classifier as
+a proxy test bed for deployment shift. Our contributions:
 \begin{enumerate}
 \item \textbf{A measured failure of threshold transfer.} On a standard
   Kaggle brain-tumor dataset whose \texttt{Training/} and
@@ -72,7 +76,8 @@ contributions:
   this task, 400 \emph{clean} images from the deployment collection
   reduce the evaluated FPR to 10.75\% (a $+0.75$-point error, compared
   with $+5.44$ points for leakage-free training-side calibration) --- no
-  attack examples are needed, matching what a hospital actually has.
+  attack examples are needed, illustrating a protocol that could use
+  the clean images available at a deployment site.
 \item \textbf{Honest re-pricing, and cross-attack transfer at the pinned
   point.} At the deployment-calibrated 10.75\% FPR, the detection rate
   for successful FGSM attacks is 36.0\% ($\varepsilon=0.01$), 73.4\%
@@ -110,7 +115,7 @@ threshold survives a collection shift.
 \cite{ma2021understanding} established that medical adversarial examples
 are easy to detect ($>$98\% AUC on X-ray, fundoscopy, dermoscopy). Our
 AUCs agree; our point is that the AUC-to-operating-point gap is where
-deployment fails. A DFT-based detector has been proposed for MRI
+fixed-threshold transfer can fail. A DFT-based detector has been proposed for MRI
 Alzheimer's classification \cite{dftmri2024}; it labels all adversarial
 inputs positive and does not examine FPR transfer.
 
@@ -154,7 +159,7 @@ text or colour banners from their web sources. Their prevalence differs
 sharply between folders for glioma (1.2\% of Training vs.\ 13.3\% of
 Testing), and the classifier collapses on exactly that subpopulation:
 15.1\% accuracy on banner-flagged glioma test images vs.\ 74.4\% on
-unflagged ones --- a reminder that a deployed model can fail almost
+unflagged ones --- a reminder that a model may fail almost
 completely on an identifiable acquisition subpopulation while aggregate
 accuracy looks acceptable. The collection shift behind our FPR finding is thus
 concrete and visible in the pixels, not only in detector score
@@ -307,9 +312,9 @@ Test ($n{=}1{,}600$)       & 0.0001 & 0.0276 & 0.3514 & 0.6868 & 15.44\% & 14.25
 
 Calibrating on 400 clean images from the deployment collection lands the
 threshold at 0.321, reducing the evaluation FPR to 10.75\%, and requires
-no labelled attacks: a
-realistic protocol for a hospital that has clean scans but no attack
-examples. Deployment-side calibration is standard practice in principle; the
+no labelled attacks. This deployment-motivated protocol uses only clean
+images from the target collection; it is not a clinical deployment
+validation. Deployment-side calibration is standard practice in principle; the
 point here is empirical --- how badly the training-side shortcut misses,
 and how little data suffices.
 Two scoping remarks: the 10\% budget is illustrative (the protocol pins
@@ -471,11 +476,16 @@ persisted for future paired analyses.
 
 \section{Conclusion}
 
-On a real medical-imaging dataset, the gap between a detector's AUC and
-its deployed operating point is where the security claim quietly breaks:
-every training-side threshold missed its FPR budget, while 400 clean
-deployment images --- no attacks required --- brought it close to the
-target. We recommend
+On a public medical-imaging dataset, a detector's fixed operating point
+failed to transfer between distinct training and test collections even
+though its ROC-AUC remained high. Every training-side threshold missed
+its FPR budget, while recalibration with 400 clean images from the test
+collection --- no attacks required --- brought the FPR close to the
+target. This is evidence of a collection-shift risk rather than a
+clinical deployment study. Similar shifts may arise when a system is
+transferred across hospitals, scanners, or acquisition protocols, so
+site-specific validation and calibration should precede clinical use.
+We recommend
 that detection papers (i) report the achieved FPR on the evaluation
 distribution next to every detection rate, (ii) treat threshold-free
 metrics as insufficient for deployment claims, and (iii) compare attack
