@@ -35,7 +35,7 @@ strategies = [
     ("Leakage-free split\n(560 imgs, val_B)", 0.154375),
     ("Deployment calibration\n(400 clean test-side imgs)", cal["eval_clean_fpr"]),
 ]
-fig, ax = plt.subplots(figsize=(4.6, 2.2))
+fig, ax = plt.subplots(figsize=(5.2, 2.8))
 labels = [s[0] for s in strategies]
 values = [s[1] * 100 for s in strategies]
 colors = ["#8A9BA6", "#8A9BA6", C_FGSM]
@@ -43,10 +43,12 @@ bars = ax.barh(range(len(values))[::-1], values, color=colors, height=0.55)
 for y, v in zip(range(len(values))[::-1], values):
     ax.text(v + 0.25, y, f"{v:.1f}%", va="center", fontsize=9)
 ax.axvline(10, color="#444444", linestyle="--", linewidth=1)
-ax.text(10.1, 2.42, "10% budget", fontsize=8, color="#444444")
+ax.text(10.15, 2.30, "10% budget", fontsize=8, color="#444444",
+        va="top")
 ax.set_yticks(range(len(labels))[::-1], labels)
 ax.set_xlabel("Achieved clean false-positive rate on test (%)")
 ax.set_xlim(0, 18)
+ax.margins(y=0.18)
 ax.spines[["top", "right"]].set_visible(False)
 fig.tight_layout()
 fig.savefig(HERE / "fig_fpr_transfer.pdf")
