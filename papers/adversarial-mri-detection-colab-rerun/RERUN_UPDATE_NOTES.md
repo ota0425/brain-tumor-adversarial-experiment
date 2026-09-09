@@ -17,9 +17,11 @@ the previously claimed consistent FGSM/PGD detectability crossover.
 That claim was removed. The supported result is that PGD detection on
 the shared success sets remains within two percentage points of FGSM.
 
-The dataset audit and exclusion analysis were not part of stages 1--9.
-Their dataset-intrinsic findings are retained, but classifier-specific
-exclusion metrics should be rerun with the final model before submission.
+The dataset audit and exclusion analysis were added as stages 11--15 and
+rerun with the final verified model. The resulting classifier-specific
+audit metrics reproduce the values reported in the paper: 100 confirmed
+meningioma duplicates, 15.1% accuracy on banner-flagged glioma images,
+and 81.94% overall clean accuracy.
 
 Stage 10 was subsequently run on the same verified model. Its persisted
 `exp1/clean_score_distribution_shift.csv` supplies the clean-score

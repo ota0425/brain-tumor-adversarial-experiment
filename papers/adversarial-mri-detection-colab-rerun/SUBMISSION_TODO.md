@@ -10,12 +10,12 @@ registration 29 ก.ย. · proceedings Springer LNEE
 
 - [ ] **หน้าแรก 3 จุด**: ชื่อนักศึกษา (+ลำดับ author), สังกัด, อีเมล
       (paper.tex บรรทัด \author/\institute)
-- [ ] **Dataset citation** (refs.bib `dataset_needs`): ระบุ citation
-      จริงของ variant 7,200 ภาพ (5,600/1,600) — **ถามนักศึกษาว่า
-      archive.zip มาจากไหน**; composite ตระกูลนี้ (Nickparvar) มาจาก
-      figshare + SARTAJ + Br35H และมาตรฐานคือ 7,023 ภาพ — variant เรา
-      ต่างจากนั้น ต้องอธิบายที่มาได้ · §3 ควรระบุ constituent sources
-      ตามคำขอ referee 3
+- [x] **Dataset citation** (refs.bib `nickparvar2021brain`): the student
+      confirmed that the experimental archive was downloaded directly
+      from Masoud Nickparvar's Kaggle page. The current data card identifies
+      the 7,200-image balanced release (5,600/1,600) and its constituent
+      sources as figshare, SARTAJ, and Br35H; §3 records the exact archive
+      counts observed in this study.
 - [ ] **[VERIFY] author lists 3 รายการ** ใน refs.bib: SciRep 2025
       (s41598-025-00890-x), AED-PADA (2404.12635), DFT-MRI (2408.08489)
       — เปิดหน้า paper จริงคัดชื่อ (ห้ามเดา) · Ma et al. ใส่ชื่อไว้แล้ว

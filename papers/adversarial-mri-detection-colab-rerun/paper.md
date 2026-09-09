@@ -118,11 +118,14 @@ removes the changing-denominator confound.
 ## 3. Experimental Setup
 
 **Task and data.** Four-class brain-tumor MRI classification (glioma,
-meningioma, no-tumor, pituitary), 5,600 training and 1,600 test images
-(balanced, 224×224, pixel range 0–255). The training folder is split
-80/20 into 4,480 train / 1,120 validation source images with verified
-zero overlap. [NEEDS: exact dataset citation/provenance for the 7,200-
-image Kaggle variant used]
+meningioma, no-tumor, pituitary) using the Brain Tumor MRI Dataset
+distributed by Masoud Nickparvar on Kaggle. The Kaggle data card
+describes it as a curated combination of the figshare, SARTAJ, and Br35H
+collections. The downloaded archive used in our experiments contained
+7,200 images: 5,600 training and 1,600 test
+images (balanced, resized to 224×224, pixel range 0–255). The training
+folder is split 80/20 into 4,480 train / 1,120 validation source images
+with verified zero overlap.
 
 **Classifier.** ImageNet-pretrained MobileNetV2, frozen backbone, light
 augmentation, trained head (Adam 1e-3, ≤10 epochs, early stopping);

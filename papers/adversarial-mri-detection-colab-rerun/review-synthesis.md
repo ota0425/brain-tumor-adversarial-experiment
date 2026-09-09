@@ -52,8 +52,9 @@
 ## FIX-BEFORE-SUBMIT (งานมนุษย์ → SUBMISSION_TODO ใน M7)
 
 - ชื่อนักศึกษา / สังกัด / อีเมล (ตอนนี้ [NEEDS] 3 จุดบนหน้าแรก)
-- Dataset citation + ระบุ constituent sources ของ composite (Medical
-  referee ยืนยัน: ไม่ optional สำหรับ venue นี้)
+- Dataset citation and direct Kaggle provenance: resolved in `refs.bib`
+  and §3; the data card identifies figshare, SARTAJ, and Br35H as the
+  constituent sources.
 - [VERIFY] author lists: SciRep 2025, AED-PADA, DFT-MRI
 - สลับรูป Fig 1 เป็นต้นฉบับ full-res จากเครื่อง GPU ตอน camera-ready
 - คัดลอก audit CSVs จากเครื่อง GPU เข้า exp1/ (byte-diff ยืนยัน)
