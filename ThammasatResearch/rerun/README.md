@@ -1,7 +1,9 @@
 # Rerun pipeline — student run guide
 
-This script set replaces all three original notebooks. Every number in
-the paper (`papers/adversarial-mri-detection/`) comes from running it.
+This script set replaces the three exploratory notebooks as the source of the
+final reported results. The current manuscript source is in
+`papers/adversarial-mri-detection-colab-rerun/`; the published, fixed snapshot
+of code, models, and results is at https://doi.org/10.5281/zenodo.22682676.
 Ground rules:
 
 - **Every run is designed to be reproducible and auditable.**
@@ -15,6 +17,11 @@ Ground rules:
   becomes invalid.
 
 ## Environment
+
+The reported rerun used Google Colab, an NVIDIA Tesla T4 GPU, Python 3.13.15,
+TensorFlow 2.20.0, and seed 42. Open the repository's `rerun_colab.ipynb` in
+Colab for the recorded stage order. The local setup below is an alternative,
+not the environment used for the final reported run.
 
 ```bash
 # Python 3.12 + TF 2.20 (on the GPU machine this lives in WSL2)
@@ -82,11 +89,12 @@ fail-closed).
 
 ## Expected checkpoint numbers (verify against the paper)
 
-- Clean test accuracy **0.81875 (1,310/1,600)** — if you get anything
-  else, your environment differs; stop and investigate rather than
-  pushing on.
-- Stage 7: threshold 0.3612, eval FPR **0.0983**
-- Stages 8–9: PGD detection within ~1 point of FGSM on the intersection
+- Clean test accuracy **0.819375 (1,311/1,600)**. Verify the classifier
+  checkpoint against `results/manifest.json` before using downstream outputs.
+- Stage 7: threshold approximately **0.320683**, evaluation FPR **0.1075**.
+- Stages 8–9: on shared successful images, PGD-10 and PGD-40 detection rates
+  are within two percentage points of FGSM at the same threshold.
 
-Full provenance: `papers/adversarial-mri-detection/exp1/PROVENANCE.md`
-and `papers/adversarial-mri-detection/review-synthesis.md`
+Full provenance: the published archive's `results/PROVENANCE.md` and
+`results/manifest.json`. Earlier 0.81875 / 0.0983 checkpoints belong to a
+different run and must not be mixed with the final model artifacts.

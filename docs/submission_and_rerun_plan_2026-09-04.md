@@ -1,5 +1,11 @@
 # 論文提出・再実行計画（2026-09-04）
 
+> Historical planning snapshot. The final rerun was completed and its results
+> were published at <https://doi.org/10.5281/zenodo.22682676>.
+> The manuscript was submitted to MICAD 2026 (OpenConf ID 764). The 81.875%
+> classifier accuracy and 9.83% FPR cited below are earlier checkpoints, not
+> the final reported values. See the root README and `docs/HANDOFF.md`.
+
 ## 現在の最優先事項
 
 - 論文提出期限は **2026-09-15**。MICAD公式サイトでは最終論文締切を **2026-09-15 (AoE)** と案内している。
@@ -16,16 +22,15 @@
 ThammasatResearch/
 ├── Adversarial MRI Rerun.pdf
 ├── Rerun pipeline — student run guide.pdf
-└── ThammasatResearch/
-    ├── dataset/archive.zip
-    ├── models/
-    ├── results/
-    └── rerun/
+├── dataset/archive.zip
+├── models/
+├── results/
+└── rerun/
 ~~~
 
 `rerun`内のPython群は、従来の3つのNotebookを機能単位に分け、再現性と監査可能性を追加した論文用パイプラインである。従来Notebookは研究経過を示す履歴として残すが、今後の論文数値の一次生成元にはしない。
 
-ガイドには`~/ThammasatResearch/scripts/rerun`とあるが、現在受領したフォルダの実体は`ThammasatResearch/ThammasatResearch/rerun`であり、`scripts`ディレクトリは存在しない。実行時は`TR_BASE`を内側の`ThammasatResearch`へ明示的に設定する。
+受領時に二重になっていた`ThammasatResearch/ThammasatResearch/`は2026-09-04に解消した。現在の実体は`ThammasatResearch/rerun/`である。ガイドにあった`~/ThammasatResearch/scripts/rerun`も実体に合わせて修正済みであり、実行時は`TR_BASE`を外側の`ThammasatResearch`へ設定する。
 
 ## 旧結果が置き換えられた理由
 
@@ -160,7 +165,7 @@ CSVは丸める前の値を比較し、表では丸め桁をそろえる。「�
 
 ## 参照先
 
-- 現行の再実行手順：`ThammasatResearch/ThammasatResearch/rerun/README.md`
+- 現行の再実行手順：`ThammasatResearch/rerun/README.md`
 - 監査説明：`ThammasatResearch/Adversarial MRI Rerun.pdf`
 - 学生向けガイド：`ThammasatResearch/Rerun pipeline — student run guide.pdf`
 - FGSM以前の確定履歴：`docs/meeting_record_2026-09-01.md`

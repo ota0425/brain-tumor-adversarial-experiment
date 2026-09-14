@@ -1,12 +1,22 @@
 # Research Handoff
 
-最終更新：2026-09-04
+最終更新：2026-09-15
 
-## 2026-09-04 最優先更新
+## Current status — 2026-09-15
+
+- The manuscript “Towards Trustworthy and Reliable Deployment of Adversarial Attack Detection for Brain MRI Classification” was submitted through MICAD 2026 OpenConf. Submission ID: **764**. The uploaded PDF was opened through OpenConf's View File. Acceptance has **not** been established.
+- Ota Wakabayashi is first author; Surasak Phetmanee is corresponding author (marked `*` in the manuscript). Verify the OpenConf Contact Author field separately if needed.
+- The reproducibility package is published on Zenodo: <https://doi.org/10.5281/zenodo.22682676>. It archives code, model checkpoints, results, and provenance, but not the manuscript or original MRI images.
+- Ota and Surasak independently reran the pipeline on Google Colab T4 and confirmed matching reported evaluation metrics. Final classifier clean-test accuracy: **0.819375 (1,311/1,600)**. Calibration with 400 clean images gives threshold **≈0.320683** and held-out evaluation FPR **10.75%** on 1,200 images. Training-side thresholds give test FPRs **13.56%** and **15.44%**. The final analysis includes FGSM, PGD-10/40, intersection-of-success comparisons, and dataset audits.
+- Use the published archive's `results/manifest.json`, `results/PROVENANCE.md`, and `results/README.md` as the fixed final-run record. `rerun_colab.ipynb` is the Colab entry point. The 83.19% and 81.875% classifier results below are **historical**, not current manuscript results.
+- Everything below records earlier decisions and experimental history. It is not a current task list; see the root README and the published archive for reproduction.
+
+## Historical snapshot — 2026-09-04
 
 - 論文提出期限は2026-09-15。Mr. SurasakとOverleafで共同執筆中である。
-- 先生がNotebook 3本を、再現性・artifact検証付きのPythonパイプラインへ整理した`ThammasatResearch/ThammasatResearch/rerun/`を受領した。
+- 先生がNotebook 3本を、再現性・artifact検証付きのPythonパイプラインへ整理した`ThammasatResearch/rerun/`を受領した。
 - 現在の最優先作業は、Stage 1からStage 9を順に実行し、出力CSV・閾値・FPR・AUC・PGD結果を論文と照合することである。
+- これは2026-09-04のミーティングで先生から明示された課題である。現在の目的は新しい手法の追加や論文値の変更ではなく、先生作成のPythonをrerunして同じ結果が得られるか検証すること。詳細は`docs/meeting_record_2026-09-04.md`を参照する。
 - 旧83.19%モデルは上書きされ、以前の実験2最終表は旧検知器と新分類器が混在したため最終結果には使わない。
 - 決定論的なclean rerunの新しい基準は81.875%（1,310/1,600）。Stage 7の確認値はthreshold約0.3612、evaluation FPR約0.0983である。
 - 詳細な実行順、照合表、提出日程は`docs/submission_and_rerun_plan_2026-09-04.md`を一次資料とする。
@@ -24,7 +34,7 @@
 
 ## この文書の役割
 
-このファイルを研究再開時の一次情報とする。新しいチャットは、最初にルートのREADME.md、このHANDOFF.md、研究計画、Notebookを確認すること。
+現行の結果は冒頭の2026-09-15更新、ルートREADME、Zenodo公開アーカイブを参照する。以下は研究履歴として保持する。
 
 Thammasat_MRI_Adversarial_Research_Handoff.docxは過去の会話時点で作成された旧資料であり、テスト評価の状態とεの候補が古い。現在の進捗判断には使用しない。
 
@@ -208,12 +218,12 @@ Attack Success Rate：
 - 保存済みモデルのファイルハッシュは未記録
 - requirements.txtを作成済み。TensorFlow 2.20.0のみ元のColab出力で確認済みであり、その他の正確なバージョンは未記録
 
-## 新しいチャットへの依頼文
+## 新しいチャットへの依頼文（2026-09-04の履歴。現行の指示として使わない）
 
 ~~~text
 このリポジトリのREADME.md、docs/HANDOFF.md、
 docs/submission_and_rerun_plan_2026-09-04.md、
-ThammasatResearch/ThammasatResearch/rerun/README.mdを確認してください。
+ThammasatResearch/rerun/README.mdを確認してください。
 ユーザーはThammasat Universityで本研究を行っており、
 毎日、指導教員Mr. Surasakと英語で研究ミーティングを行っています。
 進捗、確認済みの結果、次の作業を英語で説明できる形で整理してください。
