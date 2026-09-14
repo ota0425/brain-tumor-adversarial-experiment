@@ -30,15 +30,28 @@ These results describe a shift between collections in a public dataset. They do 
 
 The archived run used Google Colab, an NVIDIA Tesla T4 GPU, Python 3.13.15, TensorFlow 2.20.0, and seed 42. The fixed Zenodo archive includes the three final Keras checkpoints, so the reported outputs can also be inspected without retraining. For exact run order and artifact descriptions, see its `code/rerun/README.md` and `results/README.md`.
 
-## Repository map
+## Where to start
 
-| Path | Purpose |
-|---|---|
-| [`rerun_colab.ipynb`](rerun_colab.ipynb) | Main Colab entry point for the final staged rerun and dataset audits. |
-| `ThammasatResearch/rerun/` | Local copy of the staged scripts. The Zenodo archive is the fixed publication snapshot. |
-| `brain_tumor_adversarial_examples*.ipynb` and `brain_tumor_adversarial_detection*.ipynb` | Earlier FGSM and detector experiments, retained as research history. Their old model/results should not be mixed with the final rerun. |
-| `papers/` | Manuscript source and working copies; the uploaded MICAD PDF is the submission copy. |
-| `docs/` | Planning, meeting records, and historical handoff notes, some of which predate the final rerun. |
+```text
+.
+├── README.md                         Project overview and final results
+├── rerun_colab.ipynb                 Main Colab entry point (stages 1–15)
+├── ThammasatResearch/
+│   ├── README.md                     Explains the professor-provided materials
+│   └── rerun/                        Python pipeline and audit scripts
+├── papers/
+│   └── adversarial-mri-detection-colab-rerun/
+│       ├── paper.tex                 Manuscript working source
+│       └── exp1/                     Figure sources and result tables
+├── docs/                             Dated research notes and handoff history
+├── scripts/                          Helper for the earlier English notebooks
+├── brain_tumor_adversarial_*.ipynb   Earlier exploratory notebooks
+└── requirements.txt                  Legacy notebook dependencies
+```
+
+For reproduction, start with [`rerun_colab.ipynb`](rerun_colab.ipynb), then consult the [Python pipeline guide](ThammasatResearch/rerun/README.md). The [`ThammasatResearch` directory](ThammasatResearch/README.md) retains the name of the professor-provided workspace and matches the Google Drive layout expected by the notebook; it is **not** a separate project or dataset. The Zenodo archive is the fixed publication snapshot, including the final checkpoints and outputs.
+
+The [`papers/adversarial-mri-detection-colab-rerun/`](papers/adversarial-mri-detection-colab-rerun/) directory contains manuscript working files, figures, and an Overleaf upload bundle. Files there may not be identical to the PDF submitted through MICAD OpenConf; use the submitted PDF for the exact submission version. Files in [`docs/`](docs/) and the six earlier FGSM/detector notebooks document research history and should not be used as the source of the final paper numbers. For exact dependencies of the published rerun, use the archived `requirements.txt` rather than this repository's legacy notebook requirements.
 
 Patient-level independence between the original training and test collections has not been established. The dataset audit found duplicate and banner-marked images. See the manuscript and the Zenodo audit artifacts for the scope and limitations of these findings.
 
