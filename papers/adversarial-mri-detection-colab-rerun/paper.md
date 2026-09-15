@@ -84,9 +84,9 @@ According to the [15 September handoff](../../docs/HANDOFF.md), the manuscript w
 
 ## Sources for figures and numbers
 
-- [Final results guide](../../zenodo_upload/results/README.md) and [provenance](exp1/PROVENANCE.md).
-- [Classifier report](../../zenodo_upload/results/classifier_test_report.json).
-- [Baseline test results](../../zenodo_upload/results/detector_v2_test_by_epsilon.csv) and [v2b test results](exp1/detector_v2b_test_by_epsilon.csv).
+- Final results guide: `results/README.md` in the [Zenodo package](https://zenodo.org/records/22682676) and [provenance](exp1/PROVENANCE.md).
+- Classifier report: `results/classifier_test_report.json` in the [Zenodo package](https://zenodo.org/records/22682676).
+- Baseline test results: `results/detector_v2_test_by_epsilon.csv` in the [Zenodo package](https://zenodo.org/records/22682676) and [v2b test results](exp1/detector_v2b_test_by_epsilon.csv).
 - [Deployment calibration](exp1/deployment_calibration_threshold.json) and [FGSM evaluation](exp1/detector_v2b_deploycal_eval_by_epsilon.csv).
 - [Common-success comparisons](exp1/attack_intersection_analysis.csv) and [score distributions](exp1/clean_score_distribution_shift.csv).
 - Literature references: [manuscript bibliography](overleaf_submission/refs.bib). This summary does not independently revalidate the literature review.

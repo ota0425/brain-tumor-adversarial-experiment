@@ -60,7 +60,7 @@ FGSMとPGDの両方が成功した共通画像で比較すると、PGD-10/40とF
 ## 参照先と旧資料の扱い
 
 - [現行の英語研究概要](../papers/adversarial-mri-detection-colab-rerun/paper.md)：詳細な条件と共通成功集合の比較。
-- [最終結果の案内](../zenodo_upload/results/README.md)、[論文結果の来歴](../papers/adversarial-mri-detection-colab-rerun/exp1/PROVENANCE.md)。数値は対応するCSV・JSONで確認する。
+- [Zenodo公開パッケージ](https://zenodo.org/records/22682676)内の`results/README.md`（最終結果の案内）、[論文結果の来歴](../papers/adversarial-mri-detection-colab-rerun/exp1/PROVENANCE.md)。数値は対応するCSV・JSONで確認する。
 - [LaTeX作業原稿](../papers/adversarial-mri-detection-colab-rerun/overleaf_submission/paper.tex)：投稿PDFとの完全一致は保証しない。旧値・旧解釈が一部残るため、数値の参照は上記結果ファイルを優先する。
 - [旧Markdown原稿](../papers/adversarial-mri-detection-colab-rerun/paper-pre-final-rerun.md)と日付付き計画・レビューは履歴。81.875%、9.83%、旧閾値0.3612などを最終成果に混ぜない。
 
