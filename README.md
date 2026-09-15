@@ -32,6 +32,8 @@ The archived run used Google Colab, an NVIDIA Tesla T4 GPU, Python 3.13.15, Tens
 
 ## Where to start
 
+For graduation-research and presentation preparation, use the [Japanese final research summary](docs/RESEARCH_SUMMARY_JA.md) or the [current Markdown summary](papers/adversarial-mri-detection-colab-rerun/paper.md). Historical drafts, reviews, and dated plans are labeled as such; their values are not the final rerun results.
+
 ```text
 .
 ├── README.md                         Project overview and final results

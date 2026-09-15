@@ -1,5 +1,7 @@
 # Referee 3 — Medical Imaging AI (clinical deployment)
 
+> Historical draft/review/planning record — status clarified 2026-09-15. The text below is preserved as research history, not a current task list or final result source. Earlier numbers and crossover claims may be superseded. Use the [current summary](paper.md) and [current handoff](../../docs/HANDOFF.md). The handoff records submission to MICAD 2026 (ID 764), not acceptance; historical unchecked items do not establish current outstanding work.
+
 **SUMMARY**: Calibration-transfer study for adversarial detection on the
 Kaggle brain-tumor composite; includes a dataset audit (duplication,
 synthetic padding, banner subpopulation) and a clean-images-only

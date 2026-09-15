@@ -1,5 +1,7 @@
 # SEED — adversarial-mri-detection (PAPER SPRINT M1)
 
+> Historical draft/review/planning record — status clarified 2026-09-15. The text below is preserved as research history, not a current task list or final result source. Earlier numbers and crossover claims may be superseded. Use the [current summary](paper.md) and [current handoff](../../docs/HANDOFF.md). The handoff records submission to MICAD 2026 (ID 764), not acceptance; historical unchecked items do not establish current outstanding work.
+
 *ต้นทาง: แบบ (ข) — งานนักศึกษา ThammasatResearch (FGSM attack + detection
 บน Brain Tumor MRI, MobileNetV2) ที่ผ่านการ audit + rerun ทั้งสายเมื่อ
 2026-09-01/02 บนเครื่อง GPU (RTX 3070, TF 2.20.0, seed 42) ภายใต้

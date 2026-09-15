@@ -1,5 +1,7 @@
 # SUBMISSION_TODO — adversarial-mri-detection (M7, 2026-09-02)
 
+> Historical draft/review/planning record — status clarified 2026-09-15. The text below is preserved as research history, not a current task list or final result source. Earlier numbers and crossover claims may be superseded. Use the [current summary](paper.md) and [current handoff](../../docs/HANDOFF.md). The handoff records submission to MICAD 2026 (ID 764), not acceptance; historical unchecked items do not establish current outstanding work.
+
 เป้า: **MICAD 2026** (Edinburgh, 22–24 ต.ค.) · ส่งผ่าน OpenConf
 http://www.micad.org/openconf/ · **deadline 15 ก.ย. 2026** (ขยายจาก
 25 ส.ค. — เห็นบนหน้า CFP 2 ก.ย.) · single-blind · ≤10 หน้า (ตอนนี้ 10

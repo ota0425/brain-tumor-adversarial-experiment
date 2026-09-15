@@ -1,5 +1,7 @@
 # Referee 1 — Paradigm Guardian (adversarial epistemics)
 
+> Historical draft/review/planning record — status clarified 2026-09-15. The text below is preserved as research history, not a current task list or final result source. Earlier numbers and crossover claims may be superseded. Use the [current summary](paper.md) and [current handoff](../../docs/HANDOFF.md). The handoff records submission to MICAD 2026 (ID 764), not acceptance; historical unchecked items do not establish current outstanding work.
+
 **SUMMARY**: Measurement paper: on a 4-class brain-MRI task, thresholds
 for an adversarial-attack detector calibrated on training-side data miss
 their FPR budget on the test collection (+2.9/+3.6pt) while AUC is

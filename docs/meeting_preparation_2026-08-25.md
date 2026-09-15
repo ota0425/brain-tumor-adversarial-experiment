@@ -1,5 +1,7 @@
 # Meeting Preparation — 25 August 2026
 
+> **過去の研究記録（2026-09-15に位置づけを明記）**：以下の数値・「現在」「次の実験」・未完了事項は記録当時のものです。最終結果や現在の作業指示として使用しないでください。当時の記述を履歴として保持しています。卒研・発表には[最終研究概要](RESEARCH_SUMMARY_JA.md)と[引き継ぎ資料の最新状況](HANDOFF.md)を参照してください。
+
 ## Purpose
 
 - Briefly explain what I learned from *Adversarial Attacks and Defences: A Survey*.

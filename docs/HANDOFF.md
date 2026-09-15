@@ -4,6 +4,8 @@
 
 ## Current status — 2026-09-15
 
+- 卒研・中間発表用の参照先：[最終研究概要（日本語）](RESEARCH_SUMMARY_JA.md)。FPRは10.75%であり、目標10%以下の達成ではない。旧crossover主張は最終結果では支持されない。
+
 - The manuscript “Towards Trustworthy and Reliable Deployment of Adversarial Attack Detection for Brain MRI Classification” was submitted through MICAD 2026 OpenConf. Submission ID: **764**. The uploaded PDF was opened through OpenConf's View File. Acceptance has **not** been established.
 - Ota Wakabayashi is first author; Surasak Phetmanee is corresponding author (marked `*` in the manuscript). Verify the OpenConf Contact Author field separately if needed.
 - The reproducibility package is published on Zenodo: <https://doi.org/10.5281/zenodo.22682676>. It archives code, model checkpoints, results, and provenance, but not the manuscript or original MRI images.
