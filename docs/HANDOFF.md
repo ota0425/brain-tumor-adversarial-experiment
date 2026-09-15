@@ -11,7 +11,24 @@
 - The reproducibility package is published on Zenodo: <https://doi.org/10.5281/zenodo.22682676>. It archives code, model checkpoints, results, and provenance, but not the manuscript or original MRI images.
 - Ota and Surasak independently reran the pipeline on Google Colab T4 and confirmed matching reported evaluation metrics. Final classifier clean-test accuracy: **0.819375 (1,311/1,600)**. Calibration with 400 clean images gives threshold **≈0.320683** and held-out evaluation FPR **10.75%** on 1,200 images. Training-side thresholds give test FPRs **13.56%** and **15.44%**. The final analysis includes FGSM, PGD-10/40, intersection-of-success comparisons, and dataset audits.
 - Use the published archive's `results/manifest.json`, `results/PROVENANCE.md`, and `results/README.md` as the fixed final-run record. `rerun_colab.ipynb` is the Colab entry point. The 83.19% and 81.875% classifier results below are **historical**, not current manuscript results.
-- Everything below records earlier decisions and experimental history. It is not a current task list; see the root README and the published archive for reproduction.
+- The next section records current graduation-research candidates. Sections starting at “Historical snapshot — 2026-09-04” preserve earlier decisions and experiments, not a current task list; see the root README and the published archive for reproduction.
+
+## 卒業研究の追加実験候補 — 2026-09-15
+
+ローカルではDesktop/graduation-research/配下に本リポジトリを移動した。全体計画は親側のplanning/README.md、天文実験は兄弟フォルダastronomy-adversarial-experiment/で管理する。各実験のGit履歴は独立している。
+
+ユーザー確認事項：Surasak先生が紹介した以下の3件を、今後行う追加実験のデータセット・関連資料候補として検討する。RaindropのメモでAstronomyが2件、Autonomous Drivingが1件。その後、ユーザーは天文学を選択。DeepAstroUDA／Galaxy10 DECaLSの採用先・実験設計は未決定であり、追加実験は未実施。CURE-TSRは代替候補の履歴として残す。
+
+| 分野 | 候補 | URL |
+|---|---|---|
+| Astronomy | DeepAstroUDA | https://zenodo.org/records/7473597 |
+| Astronomy | Galaxy10 DECaLS | https://zenodo.org/records/10845026 |
+| Autonomous Driving | CURE-TSR | https://github.com/olivesgatech/CURE-TSR |
+
+- 論文構成：4.1で実施済みのMRI実験、4.2で今後の別分野の実験を扱う。先生の手書き目次を執筆前の構成案として用いる。
+- 研究用リンク集：https://otawakabayashi0425.raindrop.page/research-73833344 。公開ページから上記3件とメモを確認済み。各候補の詳細なデータ仕様・利用条件は未精査。
+- 「Transferability」が手法の別分野での再学習・評価を指すか、MRIで学習した検知器の直接転用を指すかは先生に未確認。ユーザーは直接転用の難しさを指摘しており、どちらかを合意済みの計画として扱わない。
+- `RESEARCH_SUMMARY_JA.md`の校正枚数を変える実験はアシスタントの提案であり、ユーザーが選んだ追加実験ではない。今後の相談では、上記3候補と4.2の構想を起点とする。
 
 ## Historical snapshot — 2026-09-04
 
